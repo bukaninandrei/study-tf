@@ -4,11 +4,12 @@ RUN apk update && apk add --no-cache build-base bash git vim curl
 
 RUN mkdir /app
 WORKDIR /app
-ADD . /app
+COPY Gemfile Gemfile.lock ./
 
-RUN bundle install
+RUN /usr/local/bin/bundle install
+
+ADD . /app
 
 EXPOSE 4000
 
 CMD bash -c 'bundle exec rackup'
-
